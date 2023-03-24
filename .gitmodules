@@ -1,0 +1,3 @@
+[submodule "vendor/T3Vtech-3"]
+	path = vendor/T3Vtech-3
+	url = git@github.com:tevoran/T3Vtech-3.git

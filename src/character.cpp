@@ -43,9 +43,49 @@ void mg::character::update()
 		m_dir = tt_math_vec3_normalize(&m_dir);
 
 		//forward movement
+		bool is_accelerating = false;
 		if(tt_input_keyboard_key_down(TT_KEY_W))
 		{
-			m_acc = tt_math_vec3_mul_float(&m_dir, MG_CHAR_ACC);
+			is_accelerating = true;
+			m_acc_t += tt_time_current_frame_s();
+			if(m_acc_t < MG_CHAR_ACC_TIME_MAX)
+			{
+				m_acc = tt_math_vec3_mul_float(&m_dir, MG_CHAR_ACC);
+			}
+			else
+			{
+				m_acc_t = MG_CHAR_ACC_TIME_MAX;
+			}
+		}
+		//right movement
+		if(tt_input_keyboard_key_down(TT_KEY_D))
+		{
+			//if(is)
+		}
+		//left movement
+		if(tt_input_keyboard_key_down(TT_KEY_A))
+		{
+			
+		}
+		if(	!tt_input_keyboard_key_down(TT_KEY_W) &&
+			!tt_input_keyboard_key_down(TT_KEY_D) &&
+			!tt_input_keyboard_key_down(TT_KEY_A) &&
+			!tt_input_keyboard_key_down(TT_KEY_S))
+		{
+			m_acc_t -= tt_time_current_frame_s();
+			if(m_acc_t < 0)
+			{
+				m_acc_t = 0.0f;
+			}
+			m_acc = tt_math_vec3_mul_float(
+				&m_vel,
+				-1.0/MG_CHAR_DECEL_TIME);
+			if(tt_math_vec3_length(&m_vel) < 0.5)
+			{
+				m_vel.x = 0.0f;
+				m_vel.y = 0.0f;
+				m_vel.z = 0.0f;
+			}
 		}
 
 	}

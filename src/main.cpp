@@ -5,6 +5,7 @@
 mg::game::game()
 {
 	tt_init("Awesome MonsterGame", 1920, 1080, false, 16, NULL);
+	tt_new_frame(); //init keyboard state
 
 	//prepare camera
 	tt_input_mouse_set_relative_mode(true);

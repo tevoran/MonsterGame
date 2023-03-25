@@ -18,6 +18,7 @@ namespace mg
 			tt_vec3 m_vel = { 0.0, 0.0, 0.0};
 			tt_vec3 m_acc = { 0.0, 0.0, 0.0};
 			tt_vec3 m_dir = { 0.0, 0.0, -1.0}; //viewing direction
-			float m_acc_t = 0.0f; //acceleration time
+			float m_acc_t_forward = 0.0f; //acceleration time
+			float m_acc_t_side = 0.0f; //acceleration time
 	};
 }

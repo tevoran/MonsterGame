@@ -128,8 +128,6 @@ void mg::character::update()
 	tt_vec3 delta_pos = tt_math_vec3_mul_float(&m_vel, t);
 	m_pos = tt_math_vec3_add(&m_pos, &delta_pos);
 
-	printf("%f\n", m_pos.z);
-
 	//player camera
 	if(m_is_player)
 	{

@@ -36,11 +36,15 @@ void mg::character::update()
 		{
 			pitch_radians = -0.5f * tt_PI;
 		}
-		yaw_radians -= (float)dx * time * MG_MOUSE_SENSITIVITY;
+		float delta_yaw = -(float)dx * time * MG_MOUSE_SENSITIVITY;
+		yaw_radians += delta_yaw;
 		tt_camera_fps(pitch_radians, yaw_radians);
 		m_dir = tt_camera_view_direction();
 		m_dir.y = 0.0f;
 		m_dir = tt_math_vec3_normalize(&m_dir);
+		//rotating player movement
+		tt_vec3 rot_axis = {0.0f, 1.0f, 0.0f};
+		m_vel = tt_math_vec3_rotate(&rot_axis, -delta_yaw, &m_vel);
 
 		//forward movement
 		bool is_accelerating = false;
@@ -79,7 +83,7 @@ void mg::character::update()
 			}
 			m_acc = tt_math_vec3_mul_float(
 				&m_vel,
-				-1.0/MG_CHAR_DECEL_TIME);
+				-1.0f/MG_CHAR_DECEL_TIME);
 			if(tt_math_vec3_length(&m_vel) < 0.5)
 			{
 				m_vel.x = 0.0f;

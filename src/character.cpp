@@ -22,18 +22,30 @@ void mg::character::update()
 	if(m_is_player)
 	{
 		//camera
-		static float yaw_radians = 0.0;
-		static float pitch_radians = 0.0;
+		static float yaw_radians = 0.0f;
+		static float pitch_radians = 0.0f;
 		int dx, dy;
 		float time=tt_time_current_frame_s();
 		tt_input_mouse_relative_motion(&dx, &dy);
 		pitch_radians += (float)dy * time * MG_MOUSE_SENSITIVITY;
+		if(pitch_radians > 0.5f * tt_PI)
+		{
+			pitch_radians = 0.5f * tt_PI;
+		}
+		if(pitch_radians < -0.5f * tt_PI)
+		{
+			pitch_radians = -0.5f * tt_PI;
+		}
 		yaw_radians -= (float)dx * time * MG_MOUSE_SENSITIVITY;
 		tt_camera_fps(pitch_radians, yaw_radians);
+		m_dir = tt_camera_view_direction();
+		m_dir.y = 0.0f;
+		m_dir = tt_math_vec3_normalize(&m_dir);
 
+		//forward movement
 		if(tt_input_keyboard_key_down(TT_KEY_W))
 		{
-			m_acc.z = -1.0f;
+			m_acc = tt_math_vec3_mul_float(&m_dir, MG_CHAR_ACC);
 		}
 
 	}

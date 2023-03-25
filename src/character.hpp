@@ -2,8 +2,6 @@
 
 #include <tt.h>
 
-#define MG_CHAR_ACC 100
-
 namespace mg
 {
 	class character

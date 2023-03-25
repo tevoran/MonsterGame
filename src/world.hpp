@@ -1,6 +1,7 @@
 #pragma once
 #include <tt.h>
 
+
 namespace mg
 {
 	class world
@@ -8,6 +9,7 @@ namespace mg
 		public:
 			world();
 			~world();
+			void update();
 		private:
 			//ground
 			tt_3d_object *m_ground = nullptr;

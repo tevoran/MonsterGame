@@ -19,3 +19,8 @@ mg::world::~world()
 	tt_3d_object_delete(&m_ground);
 	tt_3d_custom_model_delete(&m_ground_mesh);
 }
+
+void mg::world::update()
+{
+
+}

@@ -1,6 +1,6 @@
 #pragma once
 #include <tt.h>
-
+#include "settings.hpp"
 
 namespace mg
 {

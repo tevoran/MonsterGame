@@ -47,40 +47,63 @@ void mg::character::update()
 		m_vel = tt_math_vec3_rotate(&rot_axis, -delta_yaw, &m_vel);
 
 		//forward movement
-		bool is_accelerating = false;
 		if(tt_input_keyboard_key_down(TT_KEY_W))
 		{
-			is_accelerating = true;
-			m_acc_t += tt_time_current_frame_s();
-			if(m_acc_t < MG_CHAR_ACC_TIME_MAX)
+			m_acc_t_forward += tt_time_current_frame_s();
+			if(m_acc_t_forward < MG_CHAR_ACC_TIME_MAX)
 			{
 				m_acc = tt_math_vec3_mul_float(&m_dir, MG_CHAR_ACC);
 			}
 			else
 			{
-				m_acc_t = MG_CHAR_ACC_TIME_MAX;
+				m_acc_t_forward = MG_CHAR_ACC_TIME_MAX;
 			}
 		}
 		//right movement
 		if(tt_input_keyboard_key_down(TT_KEY_D))
 		{
-			//if(is)
-		}
+/*			tt_vec3 dir_right = tt_math_vec3_rotate(&rot_axis, 0.5f * tt_PI, &m_dir);
+			m_acc_t_side += tt_time_current_frame_s();
+			if(m_acc_t_side < MG_CHAR_ACC_TIME_MAX)
+			{
+				m_acc = tt_math_vec3_mul_float(&dir_right, MG_CHAR_ACC);
+			}
+			else
+			{
+				m_acc_t_side = MG_CHAR_ACC_TIME_MAX;
+			}
+*/		}
 		//left movement
 		if(tt_input_keyboard_key_down(TT_KEY_A))
 		{
-			
-		}
+/*			m_vel = tt_math_vec3_rotate(&rot_axis, -0.5f * tt_PI, &m_dir);
+			m_vel = tt_math_vec3_normalize(&m_vel);
+			m_vel = tt_math_vec3_mul_float(&m_vel, MG_CHAR_SIDE_VEL);
+*/		}
 		if(	!tt_input_keyboard_key_down(TT_KEY_W) &&
-			!tt_input_keyboard_key_down(TT_KEY_D) &&
-			!tt_input_keyboard_key_down(TT_KEY_A) &&
 			!tt_input_keyboard_key_down(TT_KEY_S))
 		{
-			m_acc_t -= tt_time_current_frame_s();
-			if(m_acc_t < 0)
+			m_acc_t_forward -= tt_time_current_frame_s();
+			if(m_acc_t_forward < 0)
 			{
-				m_acc_t = 0.0f;
+				m_acc_t_forward = 0.0f;
 			}
+		}
+		if(	!tt_input_keyboard_key_down(TT_KEY_A) &&
+			!tt_input_keyboard_key_down(TT_KEY_D))
+		{
+/*			m_acc_t_right -= tt_time_current_frame_s();
+			if(m_acc_t_right < 0)
+			{
+				m_acc_t_right = 0.0f;
+			}
+*/
+		}
+		if(	!tt_input_keyboard_key_down(TT_KEY_W) &&
+			!tt_input_keyboard_key_down(TT_KEY_A) &&
+			!tt_input_keyboard_key_down(TT_KEY_S) &&
+			!tt_input_keyboard_key_down(TT_KEY_D))
+		{
 			m_acc = tt_math_vec3_mul_float(
 				&m_vel,
 				-1.0f/MG_CHAR_DECEL_TIME);
@@ -91,7 +114,6 @@ void mg::character::update()
 				m_vel.z = 0.0f;
 			}
 		}
-
 	}
 	//npc update
 	else

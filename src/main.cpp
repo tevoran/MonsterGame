@@ -9,7 +9,6 @@ mg::game::game()
 
 	//prepare camera
 	tt_input_mouse_set_relative_mode(true);
-
     
 	//load stuff
 	m_world = new world;
@@ -24,12 +23,10 @@ mg::game::~game()
 
 void mg::game::update()
 {
-	mg::game game;
-
     while(!tt_input_keyboard_key_press(TT_KEY_ESC))
 	{
 		m_player->update();
-		m_world->update();
+		m_world->update(m_player->get_pos());
 		tt_new_frame();
 	}
 }

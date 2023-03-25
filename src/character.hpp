@@ -10,6 +10,7 @@ namespace mg
 			character(bool is_player, tt_vec3 pos);
 			~character();
 			void update();
+			const tt_vec3 *get_pos() {return &m_pos;};
 		private:
 			bool m_is_player = false;
 

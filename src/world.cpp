@@ -28,18 +28,12 @@ mg::world::world()
 	m_ground_batch_obj=tt_3d_batch_object_new();
 	tt_3d_batch_object_batch_custom_model_objects(
 		m_ground_batch_obj,
-		m_ground_mesh,
+		m_ground_mesh, 
 		MG_WORLD_SIZE_X * MG_WORLD_SIZE_Y,
 		&m_ground[0][0]);
 	tt_3d_object_use_batch_object(m_ground_batch, m_ground_batch_obj);
 	tt_3d_object_use_texture(m_ground_batch, m_ground_tex);
 	tt_3d_object_light_affected(m_ground_batch, false);
-
-    //Skybox
-    m_skybox = tt_3d_object_new();
-    m_skybox_tex = tt_3d_texture_new("assets/Paprika_Kanoniermond.png", true);
-    
-
 
 // 	tt_vec3 lightswitch_col={1.0f, 1.0f, 1.0f};
 //     tt_vec3 lightswitch_pos={0.0f, 0.0f, -7.0f};
@@ -57,17 +51,14 @@ mg::world::world()
     tt_directional_light_set_direction(m_dirlight1, &dirlight1_dir);
     
     //Skybox
-    tt_vec3 pos_skybox = {0.0, 0.0, 0.0};
-	tt_vec3 scale_skybox = {200.0, 200.0, 200.0};
-    tt_3d_object_set_position(m_skybox, &pos_skybox);
+    m_skybox = tt_3d_object_new();
+    m_skybox_tex = tt_3d_texture_new("assets/Paprika_Kanoniermond.png", true);
+	tt_vec3 scale_skybox = {250.0, 250.0, 250.0};
     tt_3d_object_scale(m_skybox,&scale_skybox);
     tt_3d_object_make_cube(m_skybox);
     tt_3d_object_use_texture(m_skybox, m_skybox_tex);
     tt_3d_object_light_affected(m_skybox, false);
     tt_3d_object_back_face_culling(m_skybox, false);
-    tt_vec3 rot_skybox = {55.0, 0.0, 0.0};
-
-
 }
 
 mg::world::~world()
@@ -86,7 +77,7 @@ mg::world::~world()
 	tt_3d_custom_model_delete(&m_ground_mesh);
 }
 
-void mg::world::update()
+void mg::world::update(const tt_vec3 *player_pos)
 {
-
+	tt_3d_object_set_position(m_skybox, (tt_vec3*)player_pos);
 }

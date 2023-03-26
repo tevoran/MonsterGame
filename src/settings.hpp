@@ -10,3 +10,4 @@
 //world
 #define MG_WORLD_SIZE_X 50
 #define MG_WORLD_SIZE_Y 50
+#define MG_WORLD_TILE_SIZE 30.0f
